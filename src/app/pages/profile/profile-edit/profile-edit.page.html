@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/feed"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="userInfo != undefined">
+  <div class="ion-padding-vertical avatar">
+    <ion-avatar class="editProfilePicture">
+      <img src="{{userInfo.image}}" />
+    </ion-avatar>
+    <ion-icon class="app-icon pencil" name="camera" (click)="clickInput()"></ion-icon>
+  </div>
+
+  <ion-list mode="md" class="ion-padding-horizontal" style="margin-top: 25px;">
+    <app-profile-edit-item title="Nombre" subtitle="{{userInfo.name}}" icon="person" (click)="presentModal('name')"></app-profile-edit-item>
+    <app-profile-edit-item title="Apellido" subtitle="{{userInfo.surname}}" icon="person" (click)="presentModal('surname')"></app-profile-edit-item>
+    <app-profile-edit-item title="About you" subtitle="{{userInfo.aboutUser}}" icon="reader" (click)="presentModal('bio')"></app-profile-edit-item>
+    <app-profile-edit-item title="Topics" icon="pricetags" (click)="presentModal('topic')"></app-profile-edit-item>
+    <!-- <app-profile-edit-item title="Language" icon="flag" (click)="presentModal('language')"></app-profile-edit-item> -->
+  </ion-list>
+</ion-content>
+
+<input #fileInput type="file" class="hidden" (change)="uploadAvatar()" />

@@ -1,0 +1,93 @@
+<!-- content -->
+<ion-header translucent="true">
+  <ion-toolbar>
+    <!-- back button -->
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <!-- chat icon -->
+    <ion-buttons *ngIf="!editProfile" collapse="true" slot="end">
+      <ion-button *ngIf="userInfo != undefined" [routerLink]="['/chat', userInfo.id]">
+        <ion-icon class="app-icon" color="medium" name="chatbox-ellipses"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <!-- settings icon -->
+    <ion-buttons *ngIf="editProfile" collapse="true" slot="end">
+      <ion-button routerLink="/settings">
+        <ion-icon class="app-icon" color="medium" name="settings-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <!-- content -->
+    <ion-title *ngIf="userInfo != undefined">{{userInfo.name}} {{userInfo.surname}}</ion-title>
+    <!-- skeleton -->
+    <ion-title *ngIf="userInfo == undefined">
+      <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- content -->
+<ion-content *ngIf="userInfo != undefined">
+  <ion-header mode="ios" collapse="condense">
+    <ion-toolbar>
+      <!-- chat icon -->
+      <ion-buttons *ngIf="!editProfile" collapse="true" slot="end">
+        <ion-button *ngIf="userInfo != undefined" [routerLink]="['/chat', userInfo.id]">
+          <ion-icon class="app-icon" color="medium" name="chatbox-ellipses"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <!-- settings icon -->
+      <ion-buttons *ngIf="editProfile" collapse="true" slot="end">
+        <ion-button routerLink="/settings">
+          <ion-icon class="app-icon" color="medium" name="settings-sharp"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title size="large">{{userInfo.name}} {{userInfo.surname}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="loadFeedMe($event, true); getUserInfo($event, true)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- about me, topics and feeds -->
+  <ion-item color="transparent" lines="none">
+    <ion-avatar slot="start">
+      <img [src]="userInfo.image" />
+    </ion-avatar>
+    <app-user-analytics [userInfo]="userInfo" [editProfile]="editProfile"></app-user-analytics>
+  </ion-item>
+  <ion-item color="transparent" lines="none" ç>
+    <app-flag [languages]="userInfo.languages"></app-flag>
+  </ion-item>
+  <app-profile-user-detail *ngIf="feeds != undefined" [userInfo]="userInfo" [feeds]="feeds"></app-profile-user-detail>
+</ion-content>
+
+<!-- skeleton -->
+<ion-content *ngIf="userInfo == undefined">
+  <ion-header mode="ios" collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">
+        <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-item color="transparent" lines="none">
+    <ion-avatar slot="start">
+      <ion-skeleton-text></ion-skeleton-text>
+    </ion-avatar>
+    <app-user-analytics [skeleton]="true" [editProfile]="editProfile"></app-user-analytics>
+  </ion-item>
+  <app-flag [skeleton]="true"></app-flag>
+  <app-profile-user-detail [skeleton]="true"></app-profile-user-detail>
+</ion-content>
+
+<ion-footer>
+  <app-tabs></app-tabs>
+</ion-footer>

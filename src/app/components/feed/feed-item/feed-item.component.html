@@ -1,0 +1,72 @@
+<ion-card *ngIf="!skeleton" class="ion-no-margin" [ngStyle]="{ 'margin-top': margin === true ? '10px' : '0px' }">
+  <app-user-info *ngIf="feed.user" [user]="feed.user" [created]="feed.created_at" lines="none"></app-user-info>
+
+  <ion-card-content class="ion-no-padding">
+    <ion-text class="app-text" color="dark">
+      {{ feed.content }}
+    </ion-text>
+    <ng-container *ngIf="feed.image != null">
+      <ion-img-viewer mode="md" src="{{ feed.image }}"></ion-img-viewer>
+    </ng-container>
+  </ion-card-content>
+
+  <ion-grid class="ion-no-padding action">
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-buttons mode="md">
+          <ion-button (click)="createLike()">
+            <ng-container *ngIf="feed.likeMe">
+              <ion-icon class="app-icon" name="heart-sharp" color="danger"></ion-icon>
+            </ng-container>
+            <ng-container *ngIf="!feed.likeMe">
+              <ion-icon class="app-icon" name="heart-outline"></ion-icon>
+            </ng-container>
+            <ion-text class="app-text-bold result" color="dark">{{ feed.like }}</ion-text>
+          </ion-button>
+          <ion-button *ngIf="showComment" [routerLink]="['/feed', feed.id]">
+            <ion-icon class="app-icon" name="chatbubble-outline"></ion-icon>
+            <ion-text class="app-text-bold result" color="dark">{{ feed.numComment }}</ion-text>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col class="col-size-2">
+        <ion-buttons mode="md">
+          <ion-button disabled>
+            <ion-icon name="ellipsis-vertical"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
+
+<!-- skeleton -->
+<ion-card *ngIf="skeleton" class="ion-no-margin" [ngStyle]="{ 'margin-top': margin === true ? '10px' : '0px' }">
+  <app-user-info [skeleton]="true" lines="none"></app-user-info>
+
+  <ion-card-content class="ion-no-padding">
+    <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+  </ion-card-content>
+
+  <ion-grid class="ion-no-padding action">
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-buttons mode="md">
+          <ion-button>
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-button>
+          <ion-button *ngIf="showComment">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col class="col-size-2">
+        <ion-buttons mode="md">
+          <ion-button disabled>
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>

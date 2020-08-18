@@ -1,0 +1,19 @@
+.chatDivRight {
+  background: var(--ion-color-primary);
+  border-radius: 10px;
+  margin: 0px 0px 3px 40px;
+  display: flex;
+  padding: 5px 10px 5px 10px;
+  color: #fff;
+}
+.timeRight {
+  display: -webkit-box;
+  justify-content: flex-end;
+  padding-right: 5px;
+  float: right;
+}
+
+.right {
+  float: right;
+  clear: both;
+}

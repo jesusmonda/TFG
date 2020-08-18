@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="dismiss()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit {{ type }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="send()">
+        <ion-icon class="app-icon" name="send" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  [ngClass]="{
+    'ion-padding-top': type == 'name' || type == 'surname' || type == 'bio',
+    '': type == 'topic' || type == 'language'
+  }"
+  class="ion-padding-horizontal"
+>
+  <!-- name and surname -->
+  <ng-container *ngIf="type == 'name' || type == 'surname'">
+    <app-textfield-outline [value]="inputValue" [label]="inputValue" [helpText]="inputLabel" type="input" maxLength="20" (changeValue)="changeData($event)"></app-textfield-outline>
+  </ng-container>
+
+  <!-- bio -->
+  <ng-container *ngIf="type == 'bio'">
+    <app-textfield-outline
+      [value]="userInfo.aboutUser"
+      [label]="userInfo.aboutUser"
+      helpText="Update about you"
+      type="textarea"
+      maxLength="160"
+      (changeValue)="changeData($event)"
+    ></app-textfield-outline>
+  </ng-container>
+
+  <!-- topics -->
+  <ng-container *ngIf="type == 'topic'">
+    <ion-list>
+      <ion-item *ngFor="let entry of topics">
+        <ion-label>{{ entry.val }}</ion-label>
+        <ion-checkbox color="primary" [(ngModel)]="entry.isChecked" slot="start" (ionChange)="changeData($event)"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <!-- languages -->
+  <ng-container *ngIf="type == 'language' && nativeLanguages != undefined && learnLanguages != undefined">
+    <ion-list class="ion-no-padding">
+      <ion-list-header mode="ios">
+        <ion-label color="dark">Native Language</ion-label>
+      </ion-list-header>
+      <ion-item lines="none" *ngFor="let native of nativeLanguages">
+        <ion-label>{{ native.name }}</ion-label>
+        <ion-checkbox
+          color="primary"
+          [(ngModel)]="native.isChecked"
+          [disabled]="native.disabled"
+          [checked]="native.isChecked"
+          slot="start"
+          (ionChange)="changeData($event)"
+        ></ion-checkbox>
+      </ion-item>
+      <ion-list-header mode="ios">
+        <ion-label color="dark">Learn Language</ion-label>
+      </ion-list-header>
+      <ion-item lines="none" *ngFor="let learn of learnLanguages">
+        <ion-label>{{ learn.name }}</ion-label>
+        <ion-checkbox
+          color="primary"
+          [(ngModel)]="learn.isChecked"
+          [disabled]="learn.disabled"
+          [checked]="learn.isChecked"
+          slot="start"
+          (ionChange)="changeData($event)"
+        ></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+</ion-content>

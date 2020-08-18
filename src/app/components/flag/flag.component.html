@@ -1,0 +1,11 @@
+<!-- content -->
+<ng-container *ngIf="!skeleton">
+  <span *ngFor="let native of nativeLanguage" [class]="native.class"></span>
+  <ion-icon color="dark" class="app-icon-small vertical-align" name="arrow-forward-outline"></ion-icon>
+  <span *ngFor="let learn of learnLanguage" [class]="learn.class"></span>
+</ng-container>
+
+<!-- skeleton -->
+<ng-container *ngIf="skeleton">
+  <ion-skeleton-text animated style="width: 20%;"></ion-skeleton-text>
+</ng-container>

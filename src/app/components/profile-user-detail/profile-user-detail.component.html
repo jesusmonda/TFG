@@ -1,0 +1,63 @@
+<!-- content -->
+<ion-list class="ion-no-padding" *ngIf="!skeleton">
+  <!-- bio -->
+  <ion-list-header mode="ios">
+    <ion-label color="dark">About me</ion-label>
+  </ion-list-header>
+  <ion-item mode="ios" lines="none" *ngIf="userInfo.aboutUser">
+    <ion-text color="dark" class="app-text">{{ userInfo.aboutUser }}</ion-text>
+  </ion-item>
+
+  <!-- topics -->
+  <ion-list-header mode="ios">
+    <ion-label color="dark">Topics</ion-label>
+  </ion-list-header>
+  <div class="ion-padding-horizontal">
+    <ion-chip color="primary" *ngFor="let topic of userInfo.profileTopics">
+      <ion-label class="app-text">{{ topic.topic }}</ion-label>
+    </ion-chip>
+  </div>
+
+  <!-- feeds -->
+  <ion-list-header mode="ios">
+    <ion-label color="dark">Feeds</ion-label>
+    <ion-button [routerLink]="['/profile', userId, 'feeds']" style="padding-right: 5px;">See All</ion-button>
+  </ion-list-header>
+  <ng-container *ngFor="let feed of feeds">
+    <div style="padding-left: 20px; padding-right: 20px;">
+      <app-feed-item [margin]="false" [showComment]="true" [feed]="feed"></app-feed-item>
+    </div>
+    <app-item-divider></app-item-divider>
+  </ng-container>
+</ion-list>
+
+<!-- skeleton -->
+<ion-list class="ion-no-padding" *ngIf="skeleton">
+  <!-- bio -->
+  <ion-list-header mode="ios">
+    <ion-label color="dark">About me</ion-label>
+  </ion-list-header>
+  <ion-item mode="ios" lines="none">
+    <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+  </ion-item>
+
+  <!-- topics -->
+  <ion-list-header mode="ios">
+    <ion-label color="dark">Topics</ion-label>
+  </ion-list-header>
+  <ion-item mode="ios" lines="none">
+    <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+  </ion-item>
+
+  <!-- feeds -->
+  <ion-list-header mode="ios">
+    <ion-label color="dark">Feeds</ion-label>
+    <ion-button style="padding-right: 5px;">See All</ion-button>
+  </ion-list-header>
+  <ng-container *ngFor="let feed of [1, 2]">
+    <div style="padding-left: 20px; padding-right: 20px;">
+      <app-feed-item [margin]="false" [showComment]="true" [skeleton]="true"></app-feed-item>
+    </div>
+    <app-item-divider></app-item-divider>
+  </ng-container>
+</ion-list>

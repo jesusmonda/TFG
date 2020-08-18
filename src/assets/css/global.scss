@@ -1,0 +1,127 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import '~@ionic/angular/css/core.css';
+
+/* Basic CSS for apps built with Ionic */
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+* {
+  outline: none;
+}
+
+/* FONT */
+@font-face {
+  font-family: 'Segoe UI';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Segoe UI'), url('../fonts/Segoe UI.woff') format('woff');
+}
+@font-face {
+  font-family: 'Segoe UI Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Segoe UI Italic'), url('../fonts/Segoe UI Italic.woff') format('woff');
+}
+@font-face {
+  font-family: 'Segoe UI Bold';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Segoe UI Bold'), url('../fonts/Segoe UI Bold.woff') format('woff');
+}
+@font-face {
+  font-family: 'Segoe UI Bold Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Segoe UI Bold Italic'), url('../fonts/Segoe UI Bold Italic.woff') format('woff');
+}
+
+/* H! */
+.app-h1 {
+  font-family: 'Segoe UI';
+  display: block !important;
+  margin: 0 !important;
+  font-size: 40px !important;
+  font-weight: 700 !important;
+  color: #fff;
+  line-height: 40px;
+}
+.app-h2 {
+  font-family: 'Segoe UI';
+  display: block !important;
+  margin: 0 !important;
+  font-size: 30px !important;
+  font-weight: 700 !important;
+  color: #fff;
+  line-height: 34px;
+}
+.app-h3 {
+  font-family: 'Segoe UI';
+  display: block !important;
+  margin: 0 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: var(--ion-color-dark) !important;
+  line-height: 18px;
+}
+.app-h5 {
+  font-family: 'Segoe UI';
+  display: block !important;
+  margin: 0 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: var(--ion-color-dark) !important;
+  line-height: 18px;
+}
+
+/* TEXT */
+.app-text {
+  font-family: 'Segoe UI';
+  font-size: 14px !important;
+  line-height: 18px;
+}
+.app-text-bold {
+  font-family: 'Segoe UI';
+  font-size: 14px !important;
+  line-height: 18px;
+  font-weight: 600;
+}
+.app-text-small {
+  font-family: 'Segoe UI';
+  font-size: 13px !important;
+  line-height: 18px;
+}
+// iphone list
+ion-list ion-list-header ion-label {
+  font-size: 18px !important;
+}
+ion-list ion-list-header ion-button {
+  font-size: 14px !important;
+}
+
+/* ICON */
+.app-icon {
+  font-size: 23px !important;
+}
+.app-icon-small {
+  font-size: 16px !important;
+}

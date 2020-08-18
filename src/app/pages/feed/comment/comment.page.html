@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="getFeed($event, true); getComment('refresher', $event, {page: 0}, true)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="ion-padding-horizontal">
+    <!-- feed -->
+    <app-feed-item *ngIf="feed != undefined" [showComment]="false" [feed]="feed"></app-feed-item>
+    <!-- feed skeleton -->
+    <app-feed-item *ngIf="feed == undefined" [showComment]="false" [skeleton]="true"></app-feed-item>
+  </div>
+
+  <!-- comments -->
+  <ion-list class="ion-no-padding">
+    <ion-list-header mode="ios" class="ion-padding-horizontal">
+      <ion-label>Comments</ion-label>
+    </ion-list-header>
+
+    <ng-container *ngIf="feed != undefined">
+      <ng-container *ngFor="let comment of comments">
+        <app-feed-comment [comment]="comment"></app-feed-comment>
+      </ng-container>
+    </ng-container>
+
+    <!-- skeleton -->
+    <ng-container *ngIf="feed == undefined">
+      <ng-container *ngFor="let comment of [1,2,3,4]">
+        <app-feed-comment [skeleton]="true"></app-feed-comment>
+      </ng-container>
+    </ng-container>
+  </ion-list>
+
+  <!-- infinite scroll -->
+  <ion-infinite-scroll *ngIf="!hideInfiniteScroll" (ionInfinite)="infiniteScrollData($event)">
+    <ion-infinite-scroll-content loadingSpinner="circular"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-footer>
+  <app-input-bar [connectionInternet]="connectionInternet" type="feed" status="3" (changeValue)="createComment($event)"></app-input-bar>
+</ion-footer>

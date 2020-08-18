@@ -1,0 +1,9 @@
+<ion-row class="left">
+  <ion-col>
+    <ion-text *ngIf="message.type == 'text'" class="app-text chatDivLeft">{{ message.content }}</ion-text>
+    <ion-text *ngIf="message.type == 'audio'" class="app-text chatDivLeft">
+      <app-audio-play [audioInfo]="message.content"></app-audio-play>
+    </ion-text>
+    <ion-text class="timeLeft app-text-small">{{ message.created_at | dateAgo }}</ion-text>
+  </ion-col>
+</ion-row>

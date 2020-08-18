@@ -1,0 +1,66 @@
+<!-- header -->
+<ion-header *ngIf="messages != undefined">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/chat"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="start" *ngIf="!connectionInternet || !socket">
+      <ion-spinner></ion-spinner>
+    </ion-buttons>
+    <ion-item lines="none" color="transparent" [routerLink]="['/profile', messages.userReceived.id]" detail="false">
+      <ion-avatar slot="start">
+        <img src="{{messages.userReceived.image}}" />
+      </ion-avatar>
+      <ion-label class="ion-no-margin">
+        <h5 class="app-h5">{{messages.userReceived.name}} {{messages.userReceived.surname}}</h5>
+        <ion-text *ngIf="messages.userReceived.lastConnection != null" color="medium" class="app-text-small"
+          >Last connection {{messages.userReceived.lastConnection | dateAgo}}</ion-text
+        >
+        <ion-text *ngIf="messages.userReceived.lastConnection == null" color="medium" class="app-text-small">Online</ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<!-- header skeleton -->
+<ion-header *ngIf="messages == undefined">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/chat"></ion-back-button>
+    </ion-buttons>
+    <ion-item lines="none" color="transparent" detail="false">
+      <ion-avatar slot="start">
+        <ion-skeleton-text></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label class="ion-no-margin">
+        <h5 class="app-h5">
+          <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+        </h5>
+        <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<!-- content -->
+<ion-content *ngIf="messages != undefined">
+  <!-- infinite scroll -->
+  <ion-infinite-scroll *ngIf="!hideInfiniteScroll" position="top" (ionInfinite)="infiniteScrollData($event)">
+    <ion-infinite-scroll-content loadingSpinner="circular"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-grid>
+    <ng-container *ngFor="let message of messages.data">
+      <ng-container *ngIf="message.userId == userService.getUserMeId()">
+        <app-owner-message [message]="message"></app-owner-message>
+      </ng-container>
+      <ng-container *ngIf="message.userId != userService.getUserMeId()">
+        <app-reception-message [message]="message"></app-reception-message>
+      </ng-container>
+    </ng-container>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <app-input-bar [socket]="socket" type="chat" status="0" (changeValue)="sendMessage($event)"></app-input-bar>
+</ion-footer>

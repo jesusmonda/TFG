@@ -1,0 +1,28 @@
+<ion-item *ngIf="!skeleton" mode="md" detail="false" lines="none" class="ion-no-margin ion-margin-bottom">
+  <ion-avatar slot="start" style="margin-bottom: auto;" routerLink="/profile/{{ comment.user.id }}">
+    <img src="{{ comment.user.image }}" />
+  </ion-avatar>
+  <ion-label style="white-space: normal; margin-top: 8px;" class="ion-no-margin">
+    <h5 color="dark" class="app-h5" routerLink="/profile/{{ comment.user.id }}">
+      {{ comment.user.name }} {{ comment.user.surname }}
+      <ion-text color="light" class="app-text-small ion-float-right">{{ comment.create_at | dateAgo }}</ion-text>
+    </h5>
+    <ion-text color="dark" class="app-text">{{ comment.content }}</ion-text>
+  </ion-label>
+</ion-item>
+
+<!-- skeleton -->
+<ion-item *ngIf="skeleton" mode="md" detail="false" lines="none" class="ion-no-margin ion-margin-bottom">
+  <ion-avatar slot="start" style="margin-bottom: auto;">
+    <ion-skeleton-text></ion-skeleton-text>
+  </ion-avatar>
+  <ion-label style="white-space: normal; margin-top: 8px;" class="ion-no-margin">
+    <h5 class="app-h5">
+      <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
+      <ion-text class="app-text-small ion-float-right">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-text>
+    </h5>
+    <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
+  </ion-label>
+</ion-item>

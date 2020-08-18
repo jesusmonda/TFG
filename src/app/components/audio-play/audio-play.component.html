@@ -1,0 +1,8 @@
+<ion-buttons>
+  <ion-button *ngIf="!isPlaying" (click)="play()">
+    <ion-icon class="app-icon" color="medium" name="play"></ion-icon>
+  </ion-button>
+  <ion-button *ngIf="isPlaying" (click)="pause()">
+    <ion-icon class="app-icon" color="medium" name="pause"></ion-icon>
+  </ion-button>
+</ion-buttons>

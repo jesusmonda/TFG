@@ -1,0 +1,36 @@
+// header and toolbar
+ion-header,
+ion-footer {
+  z-index: 0;
+  position: unset;
+  background: #fff;
+}
+.ios ion-toolbar {
+  --border-width: 0 0 0px !important;
+}
+
+// tabs
+ion-tabs ion-text {
+  display: none;
+}
+.selected {
+  --color: var(--ion-color-primary);
+}
+.selected ion-text {
+  display: unset;
+}
+
+/* Utils */
+ion-avatar {
+  width: 50px;
+  height: 50px;
+}
+.vertical-align {
+  vertical-align: middle;
+}
+
+// iphone title
+.header-collapse-condense,
+.header-md.ion-no-border::after {
+  display: block;
+}

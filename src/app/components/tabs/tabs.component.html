@@ -1,0 +1,28 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button routerLink="/feed" routerDirection="root" routerLinkActive="selected">
+      <ion-icon class="app-icon" name="book-outline"></ion-icon>
+      <ion-text class="app-text-small">Feed</ion-text>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="/chat" routerDirection="root" routerLinkActive="selected">
+      <ion-icon class="app-icon" name="chatbubbles-outline"></ion-icon>
+      <ion-text class="app-text-small">Chat</ion-text>
+    </ion-tab-button>
+
+    <ion-tab-button *ngIf="!platform.is('ios')" routerLink="/call" routerDirection="root" routerLinkActive="selected">
+      <ion-icon class="app-icon" name="call-outline"></ion-icon>
+      <ion-text class="app-text-small">Call</ion-text>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="/discover" routerDirection="root" routerLinkActive="selected">
+      <ion-icon class="app-icon" name="globe-outline"></ion-icon>
+      <ion-text class="app-text-small">Discover</ion-text>
+    </ion-tab-button>
+
+    <ion-tab-button [routerLink]="['/profile', userService.getUserMeId()]" routerDirection="root" routerLinkActive="selected">
+      <ion-icon class="app-icon" name="person-outline"></ion-icon>
+      <ion-text class="app-text-small">My profile</ion-text>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

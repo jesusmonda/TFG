@@ -1,0 +1,28 @@
+.pencil {
+  position: absolute;
+  margin-left: 100px;
+  margin-top: -40px;
+
+  background: var(--ion-color-primary);
+  border-radius: 100px;
+  padding: 7px 7px 7px 7px;
+}
+
+ion-icon {
+  color: #fff;
+}
+.avatar {
+  margin: 0 auto;
+  width: 140px;
+}
+ion-avatar {
+  width: 145px;
+  height: 145px;
+}
+
+.hidden {
+  display: none;
+  position: absolute;
+  opacity: 0;
+  z-index: -24;
+}

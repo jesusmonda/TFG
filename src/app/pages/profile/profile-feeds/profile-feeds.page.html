@@ -1,0 +1,35 @@
+<!-- header -->
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Feeds</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- content -->
+<ion-content>
+  <ion-header mode="ios" collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Feeds</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-refresher slot="fixed" (ionRefresh)="loadFeedUser('refresher', $event, {page: 0}, true)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ng-container *ngIf="feeds.length">
+    <ng-container *ngFor="let feed of feeds">
+      <div class="ion-padding-horizontal">
+        <app-feed-item [margin]="true" [showComment]="true" [feed]="feed"></app-feed-item>
+      </div>
+      <app-item-divider></app-item-divider>
+    </ng-container>
+  </ng-container>
+
+  <ion-infinite-scroll *ngIf="!hideInfiniteScroll" (ionInfinite)="infiniteScrollData($event)">
+    <ion-infinite-scroll-content loadingSpinner="circular"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

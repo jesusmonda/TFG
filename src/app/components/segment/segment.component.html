@@ -1,0 +1,5 @@
+<ion-segment [value]="value" (ionChange)="changeEvent($event)">
+  <ion-segment-button *ngFor="let type of segmentTypes" [value]="type">
+    <ion-label class="app-text">{{ type }}</ion-label>
+  </ion-segment-button>
+</ion-segment>

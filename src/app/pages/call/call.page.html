@@ -1,0 +1,86 @@
+<ion-content fullscreen>
+  <!-- no internet -->
+  <div class="ion-padding middle-center" *ngIf="!connectionInternet">
+    <div style="margin: auto auto 0 auto;">
+      <ion-text class="app-text">No internet connection</ion-text>
+    </div>
+
+    <div style="margin-top: auto;">
+    </div>
+  </div>
+
+  <ng-container *ngIf="connectionInternet">
+    <!-- !onCall && !incomingCall -->
+    <div class="ion-padding middle-center" *ngIf="!onCall && !incomingCall">
+      <ng-container *ngIf="outgoingCall && user && user.userId">Calling</ng-container>
+
+      <!-- center -->
+      <div style="margin: auto auto 0 auto;">
+        <ion-spinner *ngIf="user == undefined" style="margin: auto auto 0 auto;"></ion-spinner>
+        <ion-text *ngIf="user && !user.userId" class="app-text">No users online</ion-text>
+        <app-user-info *ngIf="user && user.userId" lines="none" [user]="user"></app-user-info>
+      </div>
+
+      <!-- bottom -->
+      <div style="margin-top: auto;">
+        <ion-button *ngIf="user && user.userId && !outgoingCall" shape="round" (click)="makeCall()" color="success">
+          <ion-icon class="app-icon-small" name="call"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="user && user.userId && !outgoingCall" shape="round" (click)="getUser()" color="primary">
+          <ion-icon class="app-icon-small" name="arrow-forward"></ion-icon>
+        </ion-button>
+
+        <ion-button *ngIf="user && user.userId && outgoingCall" shape="round" (click)="rejectCall()" color="danger">
+          <ion-icon class="app-icon-small" name="close"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- incomingCall -->
+    <div style="--background: #000;" class="ion-padding middle-center" *ngIf="incomingCall">
+      <!-- center -->
+      Incoming call
+
+      <div style="margin: auto auto 0 auto;">
+        <app-user-info *ngIf="user" lines="none" [user]="user"></app-user-info>
+      </div>
+
+      <!-- bottom -->
+      <div style="margin-top: auto;">
+        <ion-button *ngIf="user" shape="round" (click)="acceptCall()" color="success">
+          <ion-icon class="app-icon-small" name="call"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="user" shape="round" (click)="rejectCall()" color="danger">
+          <ion-icon class="app-icon-small" name="close"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+    
+    <!-- onCall -->
+    <div id="agora_local" class="local" *ngIf="onCall"></div>
+    <div [id]="remoteId" class="remote" *ngIf="onCall && remoteId"></div>
+    <div class="ion-padding middle-center" *ngIf="onCall">
+    
+      <!-- spinner -->
+      <ion-spinner style="margin: auto auto 0 auto;" *ngIf="!remoteId"></ion-spinner>
+
+      <!-- bottom -->
+      <div style="margin-top: auto;">
+        <ion-button shape="round" (click)="activeVideo()" color="success" *ngIf="!activedVideo">
+          <ion-icon class="app-icon-small" name="camera"></ion-icon>
+        </ion-button>
+        <ion-button shape="round" (click)="disableVideo()" color="danger" *ngIf="activedVideo">
+          <ion-icon class="app-icon-small" name="camera"></ion-icon>
+        </ion-button>
+        <ion-button shape="round" (click)="hangUp(localStream, true)" color="danger">
+          <ion-icon class="app-icon-small" name="close"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </ng-container>
+</ion-content>
+
+<ion-footer *ngIf="!onCall">
+  <app-tabs></app-tabs>
+</ion-footer>

@@ -1,0 +1,35 @@
+<!-- content -->
+<ion-grid *ngIf="!skeleton">
+  <ion-row>
+    <ion-col class="ion-text-center" routerLink="/profile/{{ userInfo.id }}/feeds" lines="none">
+      <h3 class="app-h3">{{ userInfo.numFeed }}</h3>
+      <ion-text color="dark" class="app-text">Feeds</ion-text>
+    </ion-col>
+    <!-- <ion-col class="ion-text-center" routerLink="/follow">
+          <h3 class="app-h3">5</h3>
+          <ion-text color="dark" class="app-text">Follower</ion-text>
+      </ion-col>
+      <ion-col class="ion-text-center" routerLink="/follow">
+          <h3 class="app-h3">8</h3>
+          <ion-text color="dark" class="app-text">Follow</ion-text>
+      </ion-col> -->
+  </ion-row>
+  <ng-container *ngIf="editProfile">
+    <ion-button color="medium" fill="outline" expand="block" routerLink="/profile/edit">Edit your profile</ion-button>
+  </ng-container>
+</ion-grid>
+
+<!-- skeleton -->
+<ion-grid *ngIf="skeleton">
+  <ion-row>
+    <ion-col class="ion-text-center" routerLink="/profile/my-feed" lines="none">
+      <h3 class="app-h3">
+        <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+      </h3>
+      <ion-text color="dark" class="app-text">Feeds</ion-text>
+    </ion-col>
+  </ion-row>
+  <ng-container *ngIf="editProfile">
+    <ion-button color="medium" fill="outline" expand="block">Edit your profile</ion-button>
+  </ng-container>
+</ion-grid>

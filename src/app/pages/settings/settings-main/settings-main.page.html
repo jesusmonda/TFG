@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item disabled="true" (click)="presentAlert()" lines="none">
+      <ion-icon class="app-icon" name="trash" slot="start" color="secondary"></ion-icon>
+      <ion-text class="app-text">Delete account</ion-text>
+    </ion-item>
+    <ion-item (click)="logout()" lines="none">
+      <ion-icon class="app-icon" name="log-out" slot="start" color="secondary"></ion-icon>
+      <ion-text class="app-text">Logout</ion-text>
+    </ion-item>
+  </ion-list>
+</ion-content>

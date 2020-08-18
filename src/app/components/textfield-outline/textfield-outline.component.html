@@ -1,0 +1,72 @@
+<div
+  *ngIf="type == 'input'"
+  #mtfInput
+  class="mdc-text-field mdc-text-field--outlined"
+  [ngClass]="{ 'mdc-text-field--invalid': status && status === 'danger', 'with-margin': !helpText || helpText === '' }"
+>
+  <input *ngIf="maxLength" class="mdc-text-field__input" [disabled]="disabled" [maxLength]="maxLength" [(ngModel)]="value" (ngModelChange)="emitValue()" [type]="typeInput" />
+  <input *ngIf="!maxLength" class="mdc-text-field__input" [disabled]="disabled" [(ngModel)]="value" (ngModelChange)="emitValue()" [type]="typeInput" />
+
+  <div class="mdc-notched-outline">
+    <div class="mdc-notched-outline__leading"></div>
+    <div class="mdc-notched-outline__notch">
+      <label class="mdc-floating-label">{{ label }}</label>
+    </div>
+    <div class="mdc-notched-outline__trailing"></div>
+  </div>
+</div>
+<div *ngIf="type == 'input' && ((helpText && helpText !== '') || maxLength)" class="mdc-text-field-helper-line" [ngClass]="{ 'with-margin': helpText && helpText !== '' }">
+  <div
+    *ngIf="helpText && helpText !== ''"
+    class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent"
+    [ngClass]="{ 'mdc-text-field-helper-text--validation-msg': status && status === 'danger' }"
+  >
+    {{ helpText }}
+  </div>
+
+  <div *ngIf="maxLength && !value" class="mdc-text-field-character-counter" [ngClass]="{ 'mdc-text-field-helper-text--validation-msg': status && status === 'danger' }">
+    0 / {{ maxLength }}
+  </div>
+  <div *ngIf="maxLength && value" class="mdc-text-field-character-counter" [ngClass]="{ 'mdc-text-field-helper-text--validation-msg': status && status === 'danger' }">
+    {{ value.length }} / {{ maxLength }}
+  </div>
+</div>
+
+<div
+  #mtfInput
+  *ngIf="type == 'textarea'"
+  class="mdc-text-field mdc-text-field--textarea"
+  [ngClass]="{ 'mdc-text-field--invalid': status && status === 'danger', 'with-margin': !helpText || helpText === '' }"
+>
+  <div *ngIf="maxLength && !value" class="mdc-text-field-character-counter" [ngClass]="{ 'mdc-text-field-helper-text--validation-msg': status && status === 'danger' }">
+    0 / {{ maxLength }}
+  </div>
+  <div *ngIf="maxLength && value" class="mdc-text-field-character-counter" [ngClass]="{ 'mdc-text-field-helper-text--validation-msg': status && status === 'danger' }">
+    {{ value.length }} / {{ maxLength }}
+  </div>
+
+  <textarea
+    *ngIf="maxLength"
+    class="mdc-text-field__input"
+    [disabled]="disabled"
+    [maxLength]="maxLength"
+    [(ngModel)]="value"
+    (ngModelChange)="emitValue()"
+    [rows]="rows"
+    [cols]="cols"
+  ></textarea>
+  <textarea *ngIf="!maxLength" class="mdc-text-field__input" [disabled]="disabled" [(ngModel)]="value" (ngModelChange)="emitValue()" [rows]="rows" [cols]="cols"></textarea>
+
+  <div class="mdc-notched-outline">
+    <div class="mdc-notched-outline__leading"></div>
+    <div class="mdc-notched-outline__notch">
+      <label class="mdc-floating-label">{{ label }}</label>
+    </div>
+    <div class="mdc-notched-outline__trailing"></div>
+  </div>
+</div>
+<div *ngIf="type == 'textarea' && helpText && helpText !== ''" class="mdc-text-field-helper-line" [ngClass]="{ 'with-margin': helpText && helpText !== '' }">
+  <div class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" [ngClass]="{ 'mdc-text-field-helper-text--validation-msg': status && status === 'danger' }">
+    {{ helpText }}
+  </div>
+</div>

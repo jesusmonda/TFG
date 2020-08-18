@@ -1,0 +1,54 @@
+* {
+  color: #fff !important;
+}
+ion-content {
+  --background: url('/assets/images/login-background.jpg') no-repeat center/cover;
+}
+a ion-text {
+  padding-left: 10px;
+}
+ion-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}
+
+.middle-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  min-height: 100%;
+  margin: 0 25px;
+}
+
+// button
+.btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  margin: 7px 0;
+  opacity: 0.85;
+  display: inline-block;
+  font-size: 18px;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+
+.fb {
+  background-color: #3b5998;
+}
+
+.twitter {
+  background-color: #55acee;
+}
+
+.google {
+  background-color: #dd4b39;
+}

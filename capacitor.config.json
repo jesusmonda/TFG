@@ -1,0 +1,14 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "app",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {},
+  "linuxAndroidStudioPath": "/snap/android-studio/91/android-studio/bin/studio.sh"
+}

@@ -1,0 +1,43 @@
+<!-- chats input -->
+<ion-item lines="none" *ngIf="type == 'chat'">
+  <!-- voice number -->
+  <ion-label *ngIf="status == 2">Recording {{ minutes }}:{{ seconds }}</ion-label>
+
+  <!-- input text -->
+  <ion-input *ngIf="status == 0 || status == 1" placeholder="Send a message" required="true" [disabled]="!socket" [(ngModel)]="content" (ngModelChange)="setStatus(1)"></ion-input>
+
+  <!-- buttons -->
+  <ion-buttons slot="end">
+    <!-- send voice button and cancel voice -->
+    <ion-button *ngIf="status == 2" (click)="stopRecord(true)">
+      <ion-icon class="app-icon" color="danger" name="trash"></ion-icon>
+    </ion-button>
+    <ion-button *ngIf="status == 2" (click)="stopRecord(false)">
+      <ion-icon class="app-icon" color="primary" name="send"></ion-icon>
+    </ion-button>
+
+    <!-- send message button -->
+    <ion-button *ngIf="status == 1" [disabled]="content.length == 0" (click)="sendMessage()">
+      <ion-icon class="app-icon" color="primary" name="send"></ion-icon>
+    </ion-button>
+
+    <!-- audio button -->
+    <ion-button [disabled]="!socket" *ngIf="status == 0" (click)="startRecord()">
+      <ion-icon class="app-icon" color="medium" name="mic"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-item>
+
+<!-- feed input -->
+<ion-item lines="none" *ngIf="type == 'feed'">
+  <!-- input text -->
+  <ion-input [disabled]="!connectionInternet" placeholder="Send a message" required="true" [(ngModel)]="content"></ion-input>
+
+  <!-- buttons -->
+  <ion-buttons slot="end">
+    <!-- send message button -->
+    <ion-button [disabled]="content.length == 0 || !connectionInternet" (click)="sendMessage()">
+      <ion-icon class="app-icon" color="primary" name="send"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-item>

@@ -1,0 +1,68 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-buttons collapse="true" slot="end">
+      <ion-button disabled>
+        <ion-icon class="app-icon" name="notifications-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Feeds</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header mode="ios" collapse="condense">
+    <ion-toolbar>
+      <ion-buttons collapse="true" slot="end">
+        <ion-button disabled>
+          <ion-icon class="app-icon" name="notifications-outline" color="primary"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title size="large">Feeds</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="loadFeeds('refresher', $event, {page: 0}, true)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- searchbar and segment -->
+  <ion-searchbar disabled="true" placeholder="Search" mode="ios"></ion-searchbar>
+  <app-segment [segmentTypes]="segmentTypes" [value]="feedType" (change)="loadFeeds('segment', $event, {page: 0}, false)"></app-segment>
+
+  <!-- content -->
+  <ng-container *ngIf="feeds != undefined">
+    <ng-container *ngFor="let feed of feeds">
+      <div class="ion-padding-horizontal">
+        <app-feed-item [margin]="true" [showComment]="true" [feed]="feed"></app-feed-item>
+      </div>
+      <app-item-divider></app-item-divider>
+    </ng-container>
+  </ng-container>
+
+  <!-- content skeleton -->
+  <ng-container *ngIf="feeds == undefined">
+    <ng-container *ngFor="let _ of [1,2,3,4]">
+      <div class="ion-padding-horizontal">
+        <app-feed-item [margin]="true" [showComment]="true" [skeleton]="true"></app-feed-item>
+      </div>
+      <app-item-divider></app-item-divider>
+    </ng-container>
+  </ng-container>
+
+  <!-- button + -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="presentModal()">
+    <ion-fab-button>
+      <ion-icon class="app-icon" name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- infinite scroll -->
+  <ion-infinite-scroll *ngIf="!hideInfiniteScroll" (ionInfinite)="infiniteScrollData($event)">
+    <ion-infinite-scroll-content loadingSpinner="circular"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-footer>
+  <app-tabs></app-tabs>
+</ion-footer>
