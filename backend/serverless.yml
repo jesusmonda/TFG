@@ -1,0 +1,231 @@
+service: app-api
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${env:ENVIRONMENT}
+  region: eu-west-1
+  deploymentBucket:
+    name: com.serverless.api
+  apiGateway:
+    minimumCompressionSize: 1024
+  vpc:
+    securityGroupIds:
+      - sg-0dd7f91427ccab11c
+    subnetIds:
+      - subnet-0f6acc54d16600e63
+      - subnet-0664ec309575b06a1
+  memorySize: 512
+  timeout: 30
+  versionFunctions: false
+  layers:
+    - arn:aws:lambda:eu-west-1:599597668977:layer:app-api-layer-${env:ENVIRONMENT}:1
+  environment:
+    DB_ENDPOINT: ${env:DB_ENDPOINT}
+    DB_USER: ${env:DB_USER}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DB_DATABASE: ${env:DB_DATABASE}
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+custom:
+  serverless-offline:
+    host: 0.0.0.0
+    port: 8081
+
+package:
+  individually: true
+  excludeDevDependencies: false
+  exclude:
+    - ./**
+
+functions:
+  ##### Authorizers
+  userAuthorizer:
+    handler: src/authorizers/index.user
+    environment:
+      JWT_SECRET: ${env:JWT_SECRET}
+    package:
+      include:
+        - src/authorizers/**
+
+  ##### Feed
+  feedFunction:
+    handler: src/routers/feed.handler
+    environment:
+      DB_BUCKET_ASSETS: ${env:BUCKET_ASSETS}
+    package:
+      include:
+        - src/routers/feed.js
+        - src/controllers/feed.controller.js
+    events:
+      - http:
+          path: feed/type/{type}
+          method: get
+          cors: true
+          authorizer: userAuthorizer
+          request:
+            parameters:
+              paths:
+                type: true
+      - http:
+          path: feed/user/{userId}
+          method: get
+          cors: true
+          authorizer: userAuthorizer
+          request:
+            parameters:
+              paths:
+                userId: true
+      - http:
+          path: feed/{id}
+          method: get
+          cors: true
+          authorizer: userAuthorizer
+          request:
+            parameters:
+              paths:
+                id: true
+      - http:
+          path: feed/{id}/comment
+          method: get
+          cors: true
+          authorizer: userAuthorizer
+          request:
+            parameters:
+              paths:
+                id: true
+      - http:
+          path: feed
+          method: post
+          cors: true
+          authorizer: userAuthorizer
+
+      - http:
+          path: feed/{id}/comment
+          method: post
+          cors: true
+          authorizer: userAuthorizer
+          request:
+            parameters:
+              paths:
+                id: true
+      - http:
+          path: feed/{id}/like
+          method: post
+          cors: true
+          authorizer: userAuthorizer
+          request:
+            parameters:
+              paths:
+                id: true
+
+  ##### Chat
+  chatFunction:
+    handler: src/routers/chat.handler
+    package:
+      include:
+        - src/routers/chat.js
+        - src/controllers/chat.controller.js
+    events:
+      - http:
+          path: chat/me
+          method: get
+          cors: true
+          authorizer: userAuthorizer
+      - http:
+          path: chat/{receiveeId}/conversation
+          method: get
+          cors: true
+          authorizer: userAuthorizer
+          request:
+            parameters:
+              paths:
+                receiveeId: true
+      - http:
+          path: chat/{receiveeId}/read
+          method: put
+          cors: true
+          authorizer: userAuthorizer
+          request:
+            parameters:
+              paths:
+                receiveeId: true
+
+  ##### Discover
+  discoverFunction:
+    handler: src/routers/discover.handler
+    package:
+      include:
+        - src/routers/discover.js
+        - src/controllers/discover.controller.js
+    events:
+      - http:
+          path: discover/people
+          method: get
+          cors: true
+          authorizer: userAuthorizer
+
+  ##### User
+  userFunction:
+    handler: src/routers/user.handler
+    environment:
+      DB_BUCKET_ASSETS: ${env:BUCKET_ASSETS}
+    package:
+      include:
+        - src/routers/user.js
+        - src/controllers/user.controller.js
+        - src/services/user.service.js
+    events:
+      - http:
+          path: user/{id}
+          method: get
+          cors: true
+          authorizer: userAuthorizer
+          request:
+            parameters:
+              paths:
+                id: true
+      - http:
+          path: user
+          method: put
+          cors: true
+          authorizer: userAuthorizer
+      - http:
+          path: user/call
+          method: get
+          cors: true
+          authorizer: userAuthorizer
+
+  ##### Utils
+  utilsFunction:
+    handler: src/routers/utils.handler
+    package:
+      include:
+        - src/routers/utils.js
+        - src/controllers/utils.controller.js
+    events:
+      - http:
+          path: languages
+          method: get
+          cors: true
+          authorizer: userAuthorizer
+      - http:
+          path: error
+          method: post
+          cors: true
+
+  ##### Login
+  loginFunction:
+    handler: src/routers/login.handler
+    package:
+      include:
+        - src/routers/login.js
+        - src/controllers/login.controller.js
+    events:
+      - http:
+          path: login
+          method: post
+          cors: true
