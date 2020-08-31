@@ -1,9 +1,9 @@
 # App
 Application built with ionic and capacitor. It's to learn languages and help other users.
 
-<image src="https://github.com/jesusmonda/app-ionic/blob/master/app.gif?raw=true">
+<image src="https://github.com/jesusmonda/TFG/blob/master/app.gif?raw=true">
 
-### Install
+### Install Frontend
 
 1. Install dependencies:
 
